@@ -1,0 +1,173 @@
+package  {
+	import flash.display.MovieClip;
+    import flash.ui.Mouse;
+	import flash.events.MouseEvent;
+	import flash.events.Event;
+	import flash.text.TextFormat;
+	import flash.text.TextField;
+	import fl.motion.MotionEvent;
+	
+	public class Aslı extends MovieClip
+	{
+
+		public function Aslı()
+		var hedef:MovieClip = new hedef_nesne ;
+		addChild(hedef);
+		hedef.mouseEnabled = false;
+		Mouse.hide();
+		var kaçan:int=0;
+		var vuruş:int=0;		
+		var seviye:Number=1;
+		var atış:int=0;
+		stage.addEventListener((MouseEvent.MOUSE_MOVE,TAKİP);
+							   function takip(oly:MouseEvent):void
+							   {
+								   hedef.x = oly.stageX;
+								   hedef.y = oly.stageY;
+			// constructor code
+		}
+		function aşağıyuvarla(a:Number,b:Number):Number
+	{
+		return Math.floor(Math.random()* ((b-a)+1)+ a;	
+	}
+	stage.addEventListener(Event.ENTER_FRAME,çalıştır);
+	function çalıştır(oly:Event):void
+	{
+		var sıra:Number=100;
+		var hız: Number=1;
+		var genişlik:int= aşağıyuvarla(40,100):
+		if((aşağıyuvarla(0,20) == 0))
+		{
+			var buNesne:MovieClip;
+			var nesneNo:Number;
+			nesneNo = aşağıyuvarla (40,100);
+			switch (nesneNo)
+			{
+				case 1 :
+				buNesne = new armut_nesne ;
+				break;
+				case 2 :
+				buNesne = new cilek_nesne ;
+				break;
+				case 3 :
+				buNesne = new elma_nesne ;
+				break;
+				case 4 :
+				buNesne = new karpuz_nesne ;
+				break;
+				case 5 :
+				buNesne = new muz_nesne ;
+				break;
+				case 6 :
+				buNesne = new kavun_nesne ;
+				break;
+				case 7 :
+				buNesne = new portakal_nesne ;
+				break;
+				default :
+				return;
+				break;
+			}
+			sıra++;
+			buNesne.x = -(buNesne.width +aşağıyuvarla(50,300));
+			buNesne.y = aşağıyuvarla(50,300);
+			buNesne.scaleX = genişlik/100;
+			buNesne.scaleY = genişlik/100;
+			buNesne.alpha= genişlik/10;
+			buNesne.speed= hız+aşağıyuvarla(0,3)+seviye;
+			buNesne.name='nesne'+sıra;
+			buNesne.addEventListener((Event.ENTER_FRAME,nesnelerGeliyor);
+			buNesne.addEventListener((MouseEvent.CLICK,nesneyeVur);
+			addChild(buNesne);
+			swapChildren(buNesne,hedef);
+		}
+		function nesnelerGeliyor(oly:Event):void
+	{
+		var buNesne:MovieClip=oly.currentTarget as MovieClip;
+		buNesne.x += buNesne.speed;
+		buNesne.y =0.4;
+		//Sahneden çıkan nesne silinir ve kaçan sayısı bir artar.
+		if (buNesne.x>(stage.stageWidth+50))
+		{
+			kaçan++;
+			trace(kaçan);
+			durumugüncelle();
+			removeChild(buNesne);
+			buNesne.removeEventListener(Event.ENTER_FRAME,nesnelerGeliyor);
+			
+		}
+	}
+	function nesneyeVur(oly:MotionEvent):void
+	{
+		var buNesne:MovieClip=oly.currentTarget as MovieClip;
+		vuruş++;
+		if((vuruş%40)==0)
+		{
+			seviye++
+		}
+		durumugüncelle();
+		buNesne.addEventListener((Event.ENTER_FRAME,vuruldu);
+								 buNesne.removeEventListener(MouseEvent.CLICK,nesneyeVur);
+								 buNesne.removeEventListener(Event.ENTER_FRAME,nesnelerGeliyor);
+	}
+	function vuruldu(oly:Event):void
+	{
+		var buNesne:MovieClip=oly.currentTarget as MovieClip;
+		var yerçekimi:int=20;
+		var düşüş:int= buNesne.y + yerçekimi;
+		buNesne.y = düşüş;
+		buNesne.x  += hız;
+		buNesne.rotation +=20
+		if (buNesne.y > (stage.stageHeight+50))
+		{
+			removeChild(buNesne);
+			buNesne.removeEventListener(Event.ENTER_FRAME,vuruldu);
+		}
+	}
+	stage.addEventListener(MouseEvenet.MOUSE_DOWN,sahneyeTıklandı);
+	function sahneyeTıklandı(oly:MouseEvent):void 
+	{
+		if (oly.stageX,oly.stageY,false)
+		{
+			atış++;
+		}
+		durumugüncelle();
+	}
+	  //metin kutusu tanımlamak için 
+	  var stil_1:TextFormat=new TextFormat ;
+	  stil_1.bold =false 
+	  stil_1.font="Comic Sans MS";
+	  stil_1.size=12;
+	  stil_1.color=0xFF00FF;
+	  
+	  var txt_durum:TextField = new TextField;
+	  txt_durum.x=0;
+	   txt_durum.y=0;
+	    txt_durum.width=stage.width;
+		 txt_durum.height=22;
+		 addChild(txt_durum);
+		  txt_durum.defaultTextFormat=stil_1;
+		   txt_durum..selectable=false;
+		   function durumugüncelle()
+		   {
+			   var kaçanoranı:Number=Math.round(((vuruş/(vuruş+kaçan))*100));
+			   var isabetoranı:Number=Math.round((((vuruş/atış)*100));
+				if (isNaN(kaçanoranı))
+				{
+					kaçanoranı=0;
+				}
+				if (isNaN(isabetoranı))
+				{
+					isabetoranı=0;
+				}
+				txt_duru.text="atış: " +atış+'\t'+ "vuruş: "+vuruş+'\t'+ "kaçan: "+kaçan+'\t'+"kaçan oranı: "+kaçanoranı+'%'+'\t'+"isabet oranı: "+isabetoranı+'%'+'\t'+"seviye: " +seviye'\t'
+		   }
+	}
+	
+	}
+
+	}
+	
+	}
+	
+}
